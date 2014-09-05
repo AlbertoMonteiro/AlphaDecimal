@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AlphaDecimal
+namespace AlphaDecimal.Console
 {
     [TestFixture]
     public class Testes
@@ -13,7 +13,7 @@ namespace AlphaDecimal
         [TestCase("ZZZ", 46655)]
         public void ConvertToDecimal(string alphaStr, int alphaDecimal)
         {
-            AplhaDecimal alpha = alphaStr;
+            AlphaDecimal alpha = alphaStr;
 
             Assert.AreEqual(alphaDecimal, alpha);
         }
@@ -24,8 +24,8 @@ namespace AlphaDecimal
         [TestCase("Z", "Z", 70)]
         public void SumToDecimal(string alphaStr1, string alphaStr2, int alphaDecimal)
         {
-            AplhaDecimal alpha =  alphaStr1;
-            AplhaDecimal alpha2 = alphaStr2;
+            AlphaDecimal alpha =  alphaStr1;
+            AlphaDecimal alpha2 = alphaStr2;
 
             var aplhaDecimal = alpha + alpha2;
 
@@ -38,8 +38,8 @@ namespace AlphaDecimal
         [TestCase("Z", "Z", "1Y")]
         public void Sum(string alphaStr1, string alphaStr2, string alpha)
         {
-            AplhaDecimal alpha1 = alphaStr1;
-            AplhaDecimal alpha2 = alphaStr2;
+            AlphaDecimal alpha1 = alphaStr1;
+            AlphaDecimal alpha2 = alphaStr2;
 
             var aplhaDecimal = alpha1 + alpha2;
 
@@ -50,7 +50,7 @@ namespace AlphaDecimal
         [TestCase(35, "Z")]
         public void TestToString(int alphaDecimal, string alphaStr)
         {
-            AplhaDecimal alpha1 = alphaDecimal;
+            AlphaDecimal alpha1 = alphaDecimal;
 
             Assert.AreEqual(alphaStr, alpha1.Value);
         }

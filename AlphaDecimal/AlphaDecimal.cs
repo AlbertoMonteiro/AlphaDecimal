@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlphaDecimal
+namespace AlphaDecimal.Console
 {
-    public struct AplhaDecimal
+    public struct AlphaDecimal
     {
         private const int BASE = 36;
         private static Dictionary<char, int> tabela;
         private static readonly List<char> TabelaIndex;
 
-        static AplhaDecimal()
+        static AlphaDecimal()
         {
             TabelaIndex = new List<char>();
             TabelaIndex.AddRange("0123456789ABCDEFGHIJLKMNOPQRSTUVWXYZ".ToCharArray());
         }
 
-        public AplhaDecimal(string value)
+        public AlphaDecimal(string value)
             : this()
         {
             Value = value ?? "0";
@@ -43,17 +43,17 @@ namespace AlphaDecimal
             return Value;
         }
 
-        public static AplhaDecimal operator +(AplhaDecimal a, AplhaDecimal b)
+        public static AlphaDecimal operator +(AlphaDecimal a, AlphaDecimal b)
         {
             return (int)a + (int)b;
         }
 
-        public static implicit operator AplhaDecimal(string a)
+        public static implicit operator AlphaDecimal(string a)
         {
-            return new AplhaDecimal(a);
+            return new AlphaDecimal(a);
         }
 
-        public static implicit operator AplhaDecimal(int decimalValue)
+        public static implicit operator AlphaDecimal(int decimalValue)
         {
             int resto;
             var lista = new List<char>();
@@ -65,10 +65,10 @@ namespace AlphaDecimal
             } while (resto > BASE);
             if (decimalValue != 0)
                 lista.Add(TabelaIndex[decimalValue]);
-            return new AplhaDecimal(new string(lista.ToArray().Reverse().ToArray()));
+            return new AlphaDecimal(new string(lista.ToArray().Reverse().ToArray()));
         }
 
-        public static implicit operator int(AplhaDecimal alpha)
+        public static implicit operator int(AlphaDecimal alpha)
         {
             return alpha.Value.ToCharArray().Reverse().Select(chr => Tabela[chr]).Select((i, index) => (int)Math.Pow(BASE, index) * i).Sum();
         }
