@@ -7,13 +7,12 @@ namespace AlphaDecimal.Console
     public struct AlphaDecimal
     {
         private const int BASE = 36;
-        private static Dictionary<char, int> tabela;
         private static readonly List<char> TabelaIndex;
 
         static AlphaDecimal()
         {
-            TabelaIndex = new List<char>();
-            TabelaIndex.AddRange("0123456789ABCDEFGHIJLKMNOPQRSTUVWXYZ".ToCharArray());
+            TabelaIndex = new List<char>("0123456789ABCDEFGHIJLKMNOPQRSTUVWXYZ".ToCharArray());
+            Tabela = TabelaIndex.Select((c, i) => new { c, i }).ToDictionary(a => a.c, a => a.i);
         }
 
         public AlphaDecimal(string value)
@@ -22,41 +21,29 @@ namespace AlphaDecimal.Console
             Value = value ?? "0";
         }
 
-        public string Value { get; set; }
+        public string Value { get; private set; }
 
-        private static Dictionary<char, int> Tabela
-        {
-            get
-            {
-                if (tabela != null)
-                    return tabela;
-                tabela = new Dictionary<char, int>();
-                int contador = 0;
-                foreach (char chr in TabelaIndex)
-                    tabela.Add(chr, contador++);
-                return tabela;
-            }
-        }
+        public static Dictionary<char, int> Tabela { get; set; }
 
         public override string ToString()
         {
             return Value;
         }
 
-        public static AlphaDecimal operator +(AlphaDecimal a, AlphaDecimal b)
+        public static AlphaDecimal operator +(AlphaDecimal alphaDecimal1, AlphaDecimal alphaDecimal2)
         {
-            return (int)a + (int)b;
+            return (int)alphaDecimal1 + (int)alphaDecimal2;
         }
 
-        public static implicit operator AlphaDecimal(string a)
+        public static implicit operator AlphaDecimal(string stringValue)
         {
-            return new AlphaDecimal(a);
+            return new AlphaDecimal(stringValue);
         }
 
         public static implicit operator AlphaDecimal(int decimalValue)
         {
             int resto;
-            var lista = new List<char>();
+            IList<char> lista = new List<char>();
             do
             {
                 resto = decimalValue % BASE;
@@ -65,7 +52,7 @@ namespace AlphaDecimal.Console
             } while (resto > BASE);
             if (decimalValue != 0)
                 lista.Add(TabelaIndex[decimalValue]);
-            return new AlphaDecimal(new string(lista.ToArray().Reverse().ToArray()));
+            return new AlphaDecimal(new string(lista.Reverse().ToArray()));
         }
 
         public static implicit operator int(AlphaDecimal alpha)

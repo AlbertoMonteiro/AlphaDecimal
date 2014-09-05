@@ -24,12 +24,12 @@ namespace AlphaDecimal.Console
         [TestCase("Z", "Z", 70)]
         public void SumToDecimal(string alphaStr1, string alphaStr2, int alphaDecimal)
         {
-            AlphaDecimal alpha =  alphaStr1;
+            AlphaDecimal alpha1 =  alphaStr1;
             AlphaDecimal alpha2 = alphaStr2;
 
-            var aplhaDecimal = alpha + alpha2;
+            var alpha = alpha1 + alpha2;
 
-            Assert.AreEqual(alphaDecimal, aplhaDecimal);
+            Assert.AreEqual(alphaDecimal, alpha);
         }
 
         [TestCase("1", "Z", "10")]
@@ -38,12 +38,12 @@ namespace AlphaDecimal.Console
         [TestCase("Z", "Z", "1Y")]
         public void Sum(string alphaStr1, string alphaStr2, string alpha)
         {
-            AlphaDecimal alpha1 = alphaStr1;
-            AlphaDecimal alpha2 = alphaStr2;
+            var alpha1 = (AlphaDecimal)alphaStr1;
+            var alpha2 = (AlphaDecimal)alphaStr2;
 
-            var aplhaDecimal = alpha1 + alpha2;
+            var alphaDecimal = alpha1 + alpha2;
 
-            Assert.AreEqual(alpha, aplhaDecimal.Value);
+            Assert.AreEqual(alpha, alphaDecimal.Value);
         }
 
         [TestCase(10, "A")]
